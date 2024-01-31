@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
+import 'package:text_to_speech/text_to_speech.dart';
 
 void main() {
   runApp(const MyApp());
@@ -37,8 +38,8 @@ class _VoiceHomeState extends State<VoiceHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Reconocimiento de Voz a Texto'),
-        backgroundColor: Color.fromRGBO(187, 150, 126, 0.979),
+        title: const Text('Reconocimiento de Voz a Texto'),
+        backgroundColor: const Color.fromRGBO(187, 150, 126, 0.979),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
@@ -76,6 +77,11 @@ class _VoiceHomeState extends State<VoiceHome> {
     } else {
       setState(() => _isListening = false);
       _speech.stop();
+      TextToSpeech tts = TextToSpeech();
+      double pitch = 1.0;
+      tts.setPitch(pitch);
+      tts.setLanguage('es-ES');
+      tts.speak(_text);
     }
   }
 }
